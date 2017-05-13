@@ -6,18 +6,11 @@
 
 
 
+std::uniform_int_distribution<> d(0, 255);
+std::mt19937 gen;
 int RGBGenerator()
 {
-
-	std::uniform_int_distribution<> d(1, 14620);
-	std::mt19937 gen;
-
-	int Zahl = (rand() % 255);
-
-	std::cout << Zahl << std::endl;
-
-	return Zahl;
-
+	return d(gen);
 }
 
 
@@ -42,13 +35,10 @@ int main()
 	while (window.isOpen())
 	{
 		window.clear(sf::Color(RGBGenerator(), RGBGenerator(), RGBGenerator(), 255));
-		window.clear(sf::Color(6.f, 6.f, 6.f));
 
 		window.draw(monitor);
 		window.draw(button);
 		window.display();
-
-
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -60,6 +50,9 @@ int main()
 			else if (event.type == sf::Event::MouseButtonPressed)
 			{
 				const auto mouse_pos = sf::Mouse::getPosition() - window.getPosition();
+				button_pressed = button.getGlobalBounds().contains(mouse_pos.x, mouse_pos.y);
+				if (button_pressed)
+					std::cout << "Pressed" << std::endl; // Stop the flickering
 			}
 		}
 
