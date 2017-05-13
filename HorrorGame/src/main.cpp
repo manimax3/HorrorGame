@@ -86,7 +86,9 @@ int main()
 					const auto mouse_pos = sf::Mouse::getPosition() - window.getPosition();
 					button_pressed = button.getGlobalBounds().contains(mouse_pos.x, mouse_pos.y);
 					if (button_pressed)
-						std::cout << "Pressed" << std::endl; // Stop the flickering
+					{
+						window.close();
+					}
 				}
 			}
 		}
