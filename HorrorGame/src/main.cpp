@@ -1,6 +1,25 @@
 #include <iostream>
+#include <ctime>
+#include <random>
 
 #include "SFML/Graphics.hpp"
+
+
+
+int RGBGenerator()
+{
+
+	std::uniform_int_distribution<> d(1, 14620);
+	std::mt19937 gen;
+
+	int Zahl = (rand() % 255);
+
+	std::cout << Zahl << std::endl;
+
+	return Zahl;
+
+}
+
 
 int main()
 {
@@ -22,12 +41,14 @@ int main()
 
 	while (window.isOpen())
 	{
+		window.clear(sf::Color(RGBGenerator(), RGBGenerator(), RGBGenerator(), 255));
 		window.clear(sf::Color(6.f, 6.f, 6.f));
 
 		window.draw(monitor);
 		window.draw(button);
-
 		window.display();
+
+
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -46,3 +67,5 @@ int main()
 
 	return 0;
 }
+
+
