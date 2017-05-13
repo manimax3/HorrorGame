@@ -42,7 +42,7 @@ int main()
 	while (window.isOpen())
 	{
 		window.clear(sf::Color(RGBGenerator(), RGBGenerator(), RGBGenerator(), 255));
-		window.clear(sf::Color(6.f, 6.f, 6.f));
+		window.clear(sf::Color(25.f, 25.f, 25.f));
 
 		window.draw(monitor);
 		window.draw(button);
