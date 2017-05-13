@@ -15,7 +15,7 @@ int RGBGenerator()
 }
 
 
-constexpr unsigned int NUMBER_MENUES = 3;
+constexpr unsigned int NUMBER_MENUES = 4;
 
 
 int main()
@@ -34,6 +34,7 @@ int main()
 		message_textures[i].loadFromFile(std::string("./res/Message_") + std::to_string(i + 1) + ".png");
 
 	sf::Sprite monitor, button;
+
 	monitor.setTexture(monitor_texture);
 	monitor.setPosition(0.f, 0.f);
 
@@ -79,7 +80,6 @@ int main()
 			}
 			else if (event.type == sf::Event::MouseButtonPressed)
 			{
-
 				if (menu_status <= NUMBER_MENUES - 1)
 					menu_status++;
 				else
