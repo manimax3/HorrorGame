@@ -44,7 +44,8 @@ int main()
 
 	while (window.isOpen())
 	{
-		window.clear(sf::Color(6.f, 6.f, 6.f));
+		window.clear(sf::Color(RGBGenerator(), RGBGenerator(), RGBGenerator(), 255));
+
 		window.draw(monitor);
 
 		if (menu_status == 0)
