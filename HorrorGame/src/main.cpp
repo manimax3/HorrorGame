@@ -18,11 +18,14 @@ int main()
 {
 
 	sf::RenderWindow window(sf::VideoMode(720, 720), "Horror Game");
-	sf::Texture monitor_texture, button_texture;
+	sf::Texture monitor_texture, button_texture, message1_texture, message2_texture, message3_texture;
 	monitor_texture.loadFromFile("./res/Monitor.png");
 	button_texture.loadFromFile("./res/Button.png");
+	message1_texture.loadFromFile("./res/Message_1.png");
+	message2_texture.loadFromFile("./res/Message_2.png");
+	message3_texture.loadFromFile("./res/Message_3.png");
 
-	sf::Sprite monitor, button;
+	sf::Sprite monitor, button, message1, message2, message3;
 	monitor.setTexture(monitor_texture);
 	monitor.setPosition(0.f, 0.f);
 
@@ -30,14 +33,36 @@ int main()
 	button.setOrigin(sf::Vector2f(0.f, button.getLocalBounds().height));
 	button.setPosition(20.f, window.getSize().y - 20);
 
+	message1.setTexture(message1_texture);
+	message1.setPosition(0, 0);
+
+	message2.setTexture(message2_texture);
+	message3.setTexture(message3_texture);
+
 	bool button_pressed = false;
+	int menu_status = 0;
 
 	while (window.isOpen())
 	{
-		window.clear(sf::Color(RGBGenerator(), RGBGenerator(), RGBGenerator(), 255));
-
+		window.clear(sf::Color(6.f, 6.f, 6.f));
 		window.draw(monitor);
-		window.draw(button);
+
+		if (menu_status == 0)
+			window.draw(message1);
+
+		else if (menu_status == 1)
+			window.draw(message2);
+
+		else if (menu_status == 2)
+			window.draw(message3);
+
+		else
+		{
+			window.clear(sf::Color(RGBGenerator(), RGBGenerator(), RGBGenerator(), 255));
+			window.draw(monitor);
+			window.draw(button);
+		}
+
 		window.display();
 
 		sf::Event event;
@@ -49,10 +74,16 @@ int main()
 			}
 			else if (event.type == sf::Event::MouseButtonPressed)
 			{
-				const auto mouse_pos = sf::Mouse::getPosition() - window.getPosition();
-				button_pressed = button.getGlobalBounds().contains(mouse_pos.x, mouse_pos.y);
-				if (button_pressed)
-					std::cout << "Pressed" << std::endl; // Stop the flickering
+
+				if (menu_status <= 2)
+					menu_status++;
+				else
+				{
+					const auto mouse_pos = sf::Mouse::getPosition() - window.getPosition();
+					button_pressed = button.getGlobalBounds().contains(mouse_pos.x, mouse_pos.y);
+					if (button_pressed)
+						std::cout << "Pressed" << std::endl; // Stop the flickering
+				}
 			}
 		}
 
